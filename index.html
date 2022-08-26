@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" type="module"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body onload="startUp()">
+    <div class="world" data-world>
+      <h3>Top 10 scores</h3>
+      <div id="results"></div>
+      <div class="score-wrapper">
+        <p>Your score:&nbsp;</p>
+        <div data-score>0</div>
+      </div>
+      <div class="start-screen" data-start-screen>Press Any Key To Start</div>
+      <img src="imgs/ground.png" class="ground" data-ground />
+      <img src="imgs/ground.png" class="ground" data-ground />
+      <img src="imgs/bird.png" class="dino" data-dino />
+    </div>
+    <script>
+      const BASE_URL = "http://localhost:3000";
+      let results;
+
+      function displayResults() {
+        results.forEach((result, index) => {
+          const divResults = document.getElementById("results");
+          const resultLine = document.createElement("p");
+          resultLine.innerText = `${index + 1} - ${result.username}: ${
+            result.score
+          }`;
+          divResults.appendChild(resultLine);
+        });
+      }
+
+      async function getAllResults() {
+        const response = await axios.get(`${BASE_URL}/scores/all`);
+        results = response.data;
+      }
+
+      async function startUp() {
+        await getAllResults();
+        displayResults();
+      }
+    </script>
+  </body>
+</html>
