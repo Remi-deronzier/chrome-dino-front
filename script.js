@@ -1,19 +1,29 @@
-import { updateGround, setupGround } from "./ground.js";
-import { updateDino, setupDino, getDinoRect, setDinoLose } from "./dino.js";
-import { updateCactus, setupCactus, getCactusRects } from "./cactus.js";
+import { getCactusRects, setupCactus, updateCactus } from "./cactus.js";
+import { getDinoRect, setDinoLose, setupDino, updateDino } from "./dino.js";
+import { setupGround, updateGround } from "./ground.js";
 
 const WORLD_WIDTH = 100;
 const WORLD_HEIGHT = 30;
 const SPEED_SCALE_INCREASE = 0.00001;
+// const BASE_URL = "http://localhost:3000";
 const BASE_URL = "https://vodkasgard-jimy-phoenix-game.herokuapp.com";
 
 const worldElem = document.querySelector("[data-world]");
 const scoreElem = document.querySelector("[data-score]");
 const startScreenElem = document.querySelector("[data-start-screen]");
 
-setPixelToWorldScale();
-window.addEventListener("resize", setPixelToWorldScale);
-document.addEventListener("keydown", handleStart, { once: true });
+(function main() {
+  setPixelToWorldScale();
+  window.addEventListener("resize", setPixelToWorldScale);
+  document.addEventListener("keydown", (event) => handleStart(event), {
+    once: true,
+  });
+  document.addEventListener("visibilitychange", (event) => {
+    if (document.visibilityState != "visible") {
+      location.reload(true);
+    }
+  });
+})();
 
 let lastTime;
 let speedScale;
@@ -47,18 +57,15 @@ function checkLose() {
 
 function displayPromptBox() {
   let currentUsername = prompt(
-    "Please enter your B00 to save your score in the 10 best scores:",
+    "Please enter your B00 to save your score in the 10 best scores (if you click on 'Cancel', your score won't be saved):",
     "B00"
   );
   if (currentUsername == null || currentUsername == "") {
-    username = generateUniqueUsername();
+    return false;
   } else {
     username = currentUsername;
+    return true;
   }
-}
-
-function generateUniqueUsername() {
-  return "_" + Math.random().toString(36).slice(2, 9);
 }
 
 async function isInTop10() {
@@ -72,7 +79,6 @@ async function getSortedResults() {
   const data = { username, score: Math.round(score) };
   const response = await axios.post(`${BASE_URL}/scores/sort`, data);
   results = response.data.results;
-  console.log(results);
   rank = response.data.rank;
 }
 
@@ -110,15 +116,19 @@ function updateScore(delta) {
   scoreElem.textContent = Math.floor(score);
 }
 
-function handleStart() {
-  lastTime = null;
-  speedScale = 1;
-  score = 0;
-  setupGround();
-  setupDino();
-  setupCactus();
-  startScreenElem.classList.add("hide");
-  window.requestAnimationFrame(update);
+function handleStart(event) {
+  if (event.code === "Space") {
+    lastTime = null;
+    speedScale = 1;
+    score = 0;
+    setupGround();
+    setupDino();
+    setupCactus();
+    startScreenElem.classList.add("hide");
+    window.requestAnimationFrame(update);
+  } else {
+    handleRestart();
+  }
 }
 
 function showRankDialog() {
@@ -128,16 +138,24 @@ function showRankDialog() {
 }
 
 async function handleLose() {
-  if (await isInTop10()) {
-    displayPromptBox();
-    await getSortedResults();
-    removeOldResults();
-    displayResults();
-    showRankDialog();
-  }
   setDinoLose();
+  if (await isInTop10()) {
+    const shouldSaveInDB = displayPromptBox();
+    if (shouldSaveInDB) {
+      await getSortedResults();
+      removeOldResults();
+      displayResults();
+      showRankDialog();
+    }
+  }
+  handleRestart();
+}
+
+function handleRestart() {
   setTimeout(() => {
-    document.addEventListener("keydown", handleStart, { once: true });
+    document.addEventListener("keydown", (event) => handleStart(event), {
+      once: true,
+    });
     startScreenElem.classList.remove("hide");
   }, 100);
 }
