@@ -25,10 +25,10 @@ body {
 
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffbd00, 0 0 40px #ffbd00, 0 0 50px #ffbd00;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #af0000, 0 0 40px #af0000, 0 0 50px #af0000;
   }
   to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #da8a18, 0 0 40px #da8a18, 0 0 50px #da8a18, 0 0 60px #da8a18;
+    text-shadow: 0 0 20px #fff, 0 0 30px #7e0909, 0 0 40px #7e0909, 0 0 50px #7e0909, 0 0 60px #7e0909;
   }
 }
 
