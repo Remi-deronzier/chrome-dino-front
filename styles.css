@@ -20,9 +20,7 @@ body {
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
   font-family: 'Montserrat';
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
+
 }
 
 @-webkit-keyframes glow {
@@ -38,6 +36,10 @@ body {
 .world {
   overflow: hidden;
   position: relative;
+   
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
 }
 
 .score-wrapper {
