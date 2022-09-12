@@ -12,6 +12,7 @@ body {
   align-items: center;
   min-height: 100vh;
   
+  color: #fff;
   background-image: url("imgs/background2.jpg"); /* The image used */
   background-color: #ffbd00; /* Used if the image is unavailable */
   height: 500px; /* You must set a specified height */
@@ -26,10 +27,10 @@ body {
 
 @-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #af0000, 0 0 40px #af0000, 0 0 50px #af0000, 0 0 60px #af0000, 0 0 70px #af0000;
   }
   to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    text-shadow: 0 0 20px #fff, 0 0 30px #ffbd00, 0 0 40px #ffbd00, 0 0 50px #ffbd00, 0 0 60px #ffbd00, 0 0 70px #ffbd00, 0 0 80px #ffbd00;
   }
 }
 
@@ -107,5 +108,4 @@ h3 {
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     z-index: 1;
-    color: #fff;
 }
