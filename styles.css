@@ -105,11 +105,11 @@ h3 {
   right: 0;
   /* border: 2px solid red; */
   /*border-radius: 5px 5px 5px 5px; */
-  /*padding: 5px 5px 5px 5px; */
-   /* margin: 10px 10px 10px 10px; */
+  padding: 5px 5px 5px 5px; 
+   margin: 10px 10px 10px 10px;
 
   
-    padding: 0px 15px; 
+    /* padding: 0px 15px; */
     background-color: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(6px);
     border-radius: 8px;
