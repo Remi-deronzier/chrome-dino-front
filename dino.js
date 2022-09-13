@@ -39,11 +39,11 @@ export function setDinoLose() {
 
 function handleRun(delta, speedScale) {
   if (isJumping) {
-    dinoElem.src = `imgs/bird.png`;
+    dinoElem.src = `imgs/bird2.png`;
     return;
   }
 
-  dinoElem.src = `imgs/bird.png`;
+  dinoElem.src = `imgs/bird2.png`;
 }
 
 function handleJump(delta) {
